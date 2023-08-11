@@ -307,19 +307,18 @@ def test_boolean_metadata(api: API) -> None:
         min_size=1,
     ),
 )
-def test_count(
+def test_filterable_count(
     caplog: pytest.LogCaptureFixture,
     api: API,
     collection: strategies.Collection,
     record_set: strategies.RecordSet,
     filters: List[strategies.Filter],
 ) -> None:
-    """Test count with where and where_document"""
+    """Test count with where and where_document"""  
     caplog.set_level(logging.ERROR)
-
     api.reset()
     coll = api.create_collection(
-        name=collection.name,
+        name= collection.name,
         metadata=collection.metadata,  # type: ignore
         embedding_function=collection.embedding_function,
     )
@@ -336,5 +335,5 @@ def test_count(
         result_ids = coll.count(**filter)
         expected_ids = _filter_embedding_set(record_set, filter)
         assert result_ids == len(expected_ids)
-    
+
     
